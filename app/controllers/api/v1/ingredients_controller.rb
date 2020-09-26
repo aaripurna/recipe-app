@@ -4,7 +4,7 @@ module Api::V1
 
     def destroy
       if @ingredient.destroy
-        head 204
+        head 200
       else
         render json: { errors: @ingredient.errors }, status: 422
       end

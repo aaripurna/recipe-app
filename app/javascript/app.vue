@@ -18,9 +18,17 @@ export default {
 }
 </script>
 
-<style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
+<style lang="scss">
+@import url('//fonts.googleapis.com/css?family=Nunito:400,600,700,800');
+body {
+  font-family: "Nunito";
+
+  .notification a:not(.button):not(.dropdown-item) {
+    text-decoration: none;
+
+    &.pagination-link.is-current {
+      color: white;
+    }
+  }
 }
 </style>

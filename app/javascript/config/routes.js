@@ -6,7 +6,7 @@ export default new VueRouter({
     {
       path: '/',
       name: 'index',
-      component: () => import('../pages/recipes/index')
+      component: () => import('../pages/recipes/index/index')
     },
     {
       path: '/recipes/new',

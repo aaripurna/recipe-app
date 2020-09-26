@@ -4,6 +4,10 @@ module Api::V1
 
     def index
       @categories = Category.order(id: :desc).page(params[:page]).per(params[:per_page])
+      if params[:search].present?
+        @categories = @categories.seacrchable(params[:search])
+      end
+
     end
 
     def create
@@ -28,7 +32,7 @@ module Api::V1
 
     def destroy
       if @category.destroy
-        head 204
+        head 200
       else
         render json: { errors: @category.errors }, status: 422
       end

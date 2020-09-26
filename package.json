@@ -2,10 +2,15 @@
   "name": "recipe_app",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
+    "@rails/activestorage": "^6.0.0",
     "@rails/webpacker": "4.3.0",
+    "axios": "^0.20.0",
     "buefy": "^0.9.3",
     "dotenv": "^8.2.0",
+    "lodash": "^4.17.20",
     "vue": "^2.6.12",
+    "vue-debounce": "^2.5.7",
     "vue-loader": "^15.9.3",
     "vue-router": "^3.4.3",
     "vue-template-compiler": "^2.6.12"

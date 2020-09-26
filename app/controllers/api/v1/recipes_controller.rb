@@ -3,7 +3,14 @@ module Api::V1
     before_action :set_recipe, except: [:index, :new, :create]
 
     def index
-      @recipes = Recipe.order(id: :desc).page(params[:page]).per(params[:per_page])
+      @recipes = Recipe.includes(:category).order(id: :desc).page(params[:page]).per(params[:per_page]).where(search_params)
+      if params[:search].present?
+        @recipes = @recipes.seacrchable(params[:search])
+      end
+
+      if params[:ingredient].present?
+        @recipes = @recipes.seacrchable_childern(params[:search])
+      end
     end
 
     def create
@@ -35,6 +42,10 @@ module Api::V1
     end
 
     private
+
+    def search_params
+      params.permit(:name, :steps, :description, :created_at, :category_id)
+    end
 
     def category_params
       params.require(:recipe).permit(:name, :description, images: [], steps: [], ingredient_attributes: [:name, :qty, :_destroy, :id])

@@ -1,0 +1,45 @@
+.delete-button {
+  cursor: pointer;
+  color: red;
+}
+.action p {
+  font-size: 14px;
+  display: inline-block;
+  transition: all ease-in-out 0.3s;
+}
+.action p:hover {
+  text-decoration: underline;
+}
+
+.filter-container {
+  display: flex;
+  justify-content: center;
+}
+
+.add-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.filters {
+  display: flex;
+  flex: 1;
+}
+a {
+  text-decoration: none !important;
+}
+.table-header {
+  margin-bottom: 10px;
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .header-bottom {
+    display: flex;
+
+    .search-bar {
+      margin-right: 10px;
+    }
+  }
+}
