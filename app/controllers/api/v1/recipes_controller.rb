@@ -48,7 +48,7 @@ module Api::V1
     end
 
     def category_params
-      params.require(:recipe).permit(:name, :description, images: [], steps: [], ingredient_attributes: [:name, :qty, :_destroy, :id])
+      params.require(:recipe).permit(:name, :description, :category_id, images: [], steps: [], ingredients_attributes: [:name, :qty, :_destroy, :id])
     end
 
     def set_recipe

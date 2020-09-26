@@ -2,7 +2,7 @@
     <section>
         <b-field :label="label">
             <b-autocomplete
-                :data="data"
+                :data="items"
                 :placeholder="placeholder"
                 :field="text"
                 :loading="loading"
@@ -17,6 +17,11 @@
                         </div>
                     </div>
                 </template>
+                <template v-if="addable" slot="footer">
+                    <a @click="$emit('add')">
+                        <span> Add new... </span>
+                    </a>
+                </template>
             </b-autocomplete>
         </b-field>
     </section>
@@ -24,6 +29,15 @@
 
 <script>
     export default {
-       props: ['data', 'loading', 'title', 'placeholder', 'label', 'field', 'text', 'value'],
+       props: ['data', 'loading', 'title', 'placeholder', 'label', 'field', 'text', 'value', 'addable'],
+
+       computed: {
+          items() {
+            if (!this.addable)
+              return this.data
+
+            return this.data.length > 0 ? this.data : [{[this.field]: ''}]
+         }
+       }
     }
 </script>

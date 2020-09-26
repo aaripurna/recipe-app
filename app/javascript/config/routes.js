@@ -5,7 +5,7 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'index',
+      name: 'home',
       component: () => import('../pages/recipes/index/index')
     },
     {

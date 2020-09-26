@@ -3,7 +3,7 @@ module Api::V1
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
     def not_found(error)
-      render 'api/v1/errors/404'
+      render 'api/v1/errors/404', status: 404
     end
   end
 end
