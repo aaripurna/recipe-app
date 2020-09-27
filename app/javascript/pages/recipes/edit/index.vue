@@ -7,6 +7,7 @@
       :ingredients="recipe.ingredients"
       :category_id="recipe.category_id"
       :description="recipe.description"
+      :photos="recipe.photos"
       @submit="submit"
       />
   </div>

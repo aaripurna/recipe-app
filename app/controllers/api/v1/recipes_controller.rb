@@ -1,6 +1,7 @@
 module Api::V1
   class RecipesController < BaseController
     before_action :set_recipe, except: [:index, :new, :create]
+    before_action :filter_params
 
     def index
       @recipes = Recipe.includes(:category).order(id: :desc).page(params[:page]).per(params[:per_page]).where(search_params)
@@ -45,6 +46,12 @@ module Api::V1
 
     def search_params
       params.permit(:name, :steps, :description, :created_at, :category_id)
+    end
+
+    def filter_params
+      if params.dig(:recipe, :images).blank?
+        params[:recipe]&.delete :images
+      end
     end
 
     def category_params

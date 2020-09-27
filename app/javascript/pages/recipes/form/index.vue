@@ -35,7 +35,8 @@
         @deleted="ingredientDeleted"
         />
 
-      <b-field label="Message"
+      <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" @vdropzone-success="fileUploaded" ></vue-dropzone>
+      <b-field label="Description"
         :type="error ? 'is-danger' : ''"
       >
           <b-input

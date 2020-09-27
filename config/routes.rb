@@ -10,5 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
-  match "*path", to: 'pages#index', via: :all
+  resources :file_uploads
+
+  get '/*slug', to: 'pages#index', constraints: lambda { |request| !request.fullpath.include?('rails') }
 end

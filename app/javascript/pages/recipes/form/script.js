@@ -4,12 +4,16 @@ import KeyValueInput from '../../../components/key-value-input'
 import { debounce } from 'lodash'
 import axios from 'axios'
 import { toast } from '../../../config/helpers'
+import { DirectUpload } from "@rails/activestorage"
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 export default {
   components: {
     AutoComplete,
     ArrayInput,
-    KeyValueInput
+    KeyValueInput,
+    vueDropzone: vue2Dropzone
   },
   props: [
     'steps', 'ingredients',
@@ -26,7 +30,18 @@ export default {
       nameModel: '',
       categories: [],
       categoryObject: {},
-      ingredientList: []
+      ingredientList: [],
+      images: [],
+
+      dropzoneOptions: {
+        thumbnailWidth: 150,
+        maxFilesize: 0.5,
+        url: "/file_uploads",
+        headers: { 'X-CSRF-TOKEN': document.querySelector("[name='csrf-token']").content },
+        removedfile: (file) => {
+
+        }
+      }
     }
   },
   created: function() {
@@ -35,6 +50,11 @@ export default {
     })
     this.ingredientList =  this.ingredients
     this.categoryObject = { name: this.category, category_id: this.category_id }
+  },
+  mounted: function() {
+    (this.photos || []).forEach(image => {
+      this.$refs.myVueDropzone.manuallyAddFile(image, image.url);
+    })
   },
   methods: {
     getSteps(items) {
@@ -99,7 +119,25 @@ export default {
         category: this.categoryObject,
         steps: this.stepsModel,
         description: this.descriptionModel,
-        ingredients_attributes: this.ingredientList
+        ingredients_attributes: this.ingredientList,
+        images: this.images
+      })
+    },
+
+    fileUploaded(file, response) {
+      this.images.push(response.signed_id)
+    },
+
+    uploadFile(file) {
+      const url = "/rails/active_storage/direct_uploads"
+      const upload = new DirectUpload(file, url)
+
+      upload.create((error, blob) => {
+        if (error) {
+          toast({ message: 'Failed to upload image', type: 'is-danger' })
+        } else {
+          this.images.push(blob.signed_id)
+        }
       })
     }
   },

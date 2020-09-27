@@ -1,0 +1,32 @@
+header {
+  text-align: center;
+
+  h1 {
+    font-weight: 700;
+    font-size: 36px;
+  }
+}
+
+section {
+  margin-bottom: 20px;
+  h2 {
+    font-weight: 700;
+    font-size: 25px;
+  }
+}
+
+.image-contaner {
+  .image-wrapper {
+    width: calc(100% / 3);
+    padding: 3px;
+    overflow: hidden;
+    display: inline-block;
+    height: 230px;
+
+    img {
+      width: auto;
+      object-fit: cover;
+      height: 100%;
+    }
+  }
+}
