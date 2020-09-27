@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:9.4.1
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: example
+      POSTGRES_DB: recipe_development
+    ports:
+      - "5434:5432"
+
+  rails:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - RAILS_MASTER_KEY=7dd259262e43a3d24f4c7c60b54fe8b3
+        - RAILS_ENV=production
+    environment:
+      DATABASE_URL: postgresql://example:example@db:5432/recipe_development
+      RAILS_MASTER_KEY: 7dd259262e43a3d24f4c7c60b54fe8b3
+      RAILS_ENV: production
+      RAILS_SERVE_STATIC_FILES: 'true'
+      RAILS_LOG_TO_STDOUT: 'true'
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    links:
+      - db
